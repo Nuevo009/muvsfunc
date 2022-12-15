@@ -5966,7 +5966,7 @@ def getnative(clip: vs.VideoNode, rescalers: Union[rescale.Rescaler, List[rescal
 
             # evaluate 800.0, 800.1, 800.2, ..., 899.8, 899.9 as source heights with bicubic(b=1/3, c=1/3) as kernel
             # base_height here must be a interger larger than any of src_heights
-            res = muf.getnative(clip, rescalers=muf.rescale.Bicubic(), src_heights=muf.arange(800, 900, 0.1), base_height=900)
+            res = muf.getnative(clip, rescalers=muf.rescale.Bicubic(1/3, 1/3), src_heights=muf.arange(800, 900, 0.1), base_height=900)
             res.set_output()
         
         Compare between different fractional source widths while specify a fixed src_height.
@@ -5975,7 +5975,7 @@ def getnative(clip: vs.VideoNode, rescalers: Union[rescale.Rescaler, List[rescal
             # evaluate 1200.0, 1200.1, 1200.2, ..., 1399.8, 1399.9 as source widths and 1080 as source height with bicubic(b=1/3, c=1/3) as kernel
             # we use std.Transpose() to do the trick
             # base_height here must be a interger larger than any of src_heights
-            res = muf.getnative(clip.std.Transpose(), rescalers=muf.rescale.Bicubic(), src_heights=muf.arange(1200, 1400, 0.1), base_height=1927, src_width=1080)
+            res = muf.getnative(clip.std.Transpose(), rescalers=muf.rescale.Bicubic(1/3, 1/3), src_heights=muf.arange(1200, 1400, 0.1), base_height=1927, src_width=1080)
             res.set_output()
         
         Compare between different fractional source heights while specify a fixed src_width and set base_width manually.
@@ -5984,7 +5984,7 @@ def getnative(clip: vs.VideoNode, rescalers: Union[rescale.Rescaler, List[rescal
             # evaluate 700.0, 700.1, 700.2, ..., 799.8, 799.9 as source heights and 1279.1 as source width with bicubic(b=1/3, c=1/3) as kernel
             # base_height here must be a interger larger than any of src_heights
             # base_width here must be a interger larger than src_width
-            res = muf.getnative(clip, rescalers=muf.rescale.Bicubic(), src_heights=muf.arange(700, 800, 0.1), base_height=1927, src_width=1279.1, base_width=1927)
+            res = muf.getnative(clip, rescalers=muf.rescale.Bicubic(1/3, 1/3), src_heights=muf.arange(700, 800, 0.1), base_height=1927, src_width=1279.1, base_width=1927)
             res.set_output()
 
         Compare between different descale kernels:
